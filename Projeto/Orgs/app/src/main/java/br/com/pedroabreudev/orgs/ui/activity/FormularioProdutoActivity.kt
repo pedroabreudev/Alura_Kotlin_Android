@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import br.com.pedroabreudev.orgs.R
+import br.com.pedroabreudev.orgs.dao.ProdutosDao
 import br.com.pedroabreudev.orgs.model.Produto
 import java.math.BigDecimal
 
@@ -28,13 +29,16 @@ class FormularioProdutoActivity : AppCompatActivity() {
             } else {
                 BigDecimal(valor)
             }
-            
+
             val produtoCriado = Produto(
                 nome = nome,
                 descricao = descricao,
                 valor = valorProduto
             )
             Log.i("Formulario Produto Activity", "onCreate: $produtoCriado")
+            val dao = ProdutosDao()
+            dao.adiciona(produtoCriado)
+            finish()
         }
     }
 }
