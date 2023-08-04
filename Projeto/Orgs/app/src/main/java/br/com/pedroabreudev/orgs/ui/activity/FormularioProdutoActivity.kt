@@ -9,6 +9,7 @@ import br.com.pedroabreudev.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.pedroabreudev.orgs.databinding.FormularioImagemBinding
 import br.com.pedroabreudev.orgs.extensions.tentaCarregarImagem
 import br.com.pedroabreudev.orgs.model.Produto
+import br.com.pedroabreudev.orgs.ui.dialog.FormularioImagemDialog
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
@@ -25,33 +26,8 @@ class FormularioProdutoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configuraBotaoSalvar()
-
-        val imageLoader = ImageLoader.Builder(this)
-            .componentRegistry {
-                if (SDK_INT >= 28) {
-                    add(ImageDecoderDecoder(this@FormularioProdutoActivity))
-                } else {
-                    add(GifDecoder())
-                }
-            }.build()
-
         binding.activityFormularioProdutoImagem.setOnClickListener {
-            val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
-            bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
-                val url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                bindingFormularioImagem.formularioImagemImageview.tentaCarregarImagem(url)
-            }
-
-            AlertDialog.Builder(this)
-                .setView(bindingFormularioImagem.root)
-                .setPositiveButton("Confirmar") { _, _ ->
-                    url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                    binding.activityFormularioProdutoImagem.tentaCarregarImagem(url)
-                }
-                .setNegativeButton("Cancelar") { _, _ ->
-
-                }
-                .show()
+            FormularioImagemDialog(this).mostra()
         }
     }
 
