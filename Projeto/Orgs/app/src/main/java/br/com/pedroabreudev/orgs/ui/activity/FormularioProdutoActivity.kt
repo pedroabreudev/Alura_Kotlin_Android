@@ -1,15 +1,16 @@
 package br.com.pedroabreudev.orgs.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import br.com.pedroabreudev.orgs.R
+import androidx.appcompat.app.AppCompatActivity
 import br.com.pedroabreudev.orgs.dao.ProdutosDao
 import br.com.pedroabreudev.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.pedroabreudev.orgs.databinding.FormularioImagemBinding
 import br.com.pedroabreudev.orgs.model.Produto
+import coil.ImageLoader
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import coil.load
 import java.math.BigDecimal
 
@@ -24,18 +25,34 @@ class FormularioProdutoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configuraBotaoSalvar()
+
+        val imageLoader = ImageLoader.Builder(this)
+            .componentRegistry {
+                if (SDK_INT >= 28) {
+                    add(ImageDecoderDecoder(this@FormularioProdutoActivity))
+                } else {
+                    add(GifDecoder())
+                }
+            }.build()
+
         binding.activityFormularioProdutoImagem.setOnClickListener {
             val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
             bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
                 val url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                bindingFormularioImagem.formularioImagemImageview.load(url)
+                bindingFormularioImagem.formularioImagemImageview.load(
+                    url,
+                    imageLoader = imageLoader
+                )
             }
 
             AlertDialog.Builder(this)
                 .setView(bindingFormularioImagem.root)
                 .setPositiveButton("Confirmar") { _, _ ->
                     url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                    binding.activityFormularioProdutoImagem.load(url)
+                    binding.activityFormularioProdutoImagem.load(
+                        url,
+                        imageLoader
+                    )
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
 
