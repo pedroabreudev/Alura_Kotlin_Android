@@ -33,12 +33,10 @@ Tela de detalhes do produto
 
 ![orgs-desafio-detalhes](https://user-images.githubusercontent.com/8989346/124600562-3a743e00-de3d-11eb-9d45-15e8a8d2976f.gif)
 
-[Você pode conferir o resultado do desafio neste commit](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/commit/3188f27a627592715e7de62b6da450696e401f18).
 
 ## 📁 Acesso ao projeto
 
-Você pode [acessar o código fonte do projeto inicial](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/tree/projeto-inicial) ou [baixá-lo](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/archive/refs/heads/projeto-inicial.zip).
-
+Você pode [acessar o código fonte do projeto inicial](https://github.com/pedroabreudev/Alura_Kotlin_Android/tree/02_personalize_seu_app) 
 ## 🛠️ Abrir e rodar o projeto
 
 Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
