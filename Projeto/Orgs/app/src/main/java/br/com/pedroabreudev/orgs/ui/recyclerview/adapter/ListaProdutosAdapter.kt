@@ -2,11 +2,12 @@ package br.com.pedroabreudev.orgs.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.pedroabreudev.orgs.databinding.ProdutoItemBinding
+import br.com.pedroabreudev.orgs.extensions.tentaCarregarImagem
 import br.com.pedroabreudev.orgs.model.Produto
-import coil.load
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.Locale
@@ -31,7 +32,14 @@ class ListaProdutosAdapter(
                 formataParaMoedaBrasileira(produto.valor)
             valor.text = valorEmMoeda
 
-            binding.imageView.load(produto.imagem)
+            val visibilidade = if (produto.imagem != null) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+            binding.imageView.visibility = visibilidade
+
+            binding.imageView.tentaCarregarImagem(produto.imagem)
         }
 
         private fun formataParaMoedaBrasileira(valor: BigDecimal): String {

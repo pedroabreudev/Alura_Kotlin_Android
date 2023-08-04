@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.pedroabreudev.orgs.dao.ProdutosDao
 import br.com.pedroabreudev.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.pedroabreudev.orgs.databinding.FormularioImagemBinding
+import br.com.pedroabreudev.orgs.extensions.tentaCarregarImagem
 import br.com.pedroabreudev.orgs.model.Produto
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
-import coil.load
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
@@ -39,20 +39,14 @@ class FormularioProdutoActivity : AppCompatActivity() {
             val bindingFormularioImagem = FormularioImagemBinding.inflate(layoutInflater)
             bindingFormularioImagem.formularioImagemBotaoCarregar.setOnClickListener {
                 val url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                bindingFormularioImagem.formularioImagemImageview.load(
-                    url,
-                    imageLoader = imageLoader
-                )
+                bindingFormularioImagem.formularioImagemImageview.tentaCarregarImagem(url)
             }
 
             AlertDialog.Builder(this)
                 .setView(bindingFormularioImagem.root)
                 .setPositiveButton("Confirmar") { _, _ ->
                     url = bindingFormularioImagem.formularioImagemUrl.text.toString()
-                    binding.activityFormularioProdutoImagem.load(
-                        url,
-                        imageLoader
-                    )
+                    binding.activityFormularioProdutoImagem.tentaCarregarImagem(url)
                 }
                 .setNegativeButton("Cancelar") { _, _ ->
 
