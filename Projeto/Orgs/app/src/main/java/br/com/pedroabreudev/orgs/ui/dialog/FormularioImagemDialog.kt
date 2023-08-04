@@ -1,7 +1,6 @@
 package br.com.pedroabreudev.orgs.ui.dialog
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import br.com.pedroabreudev.orgs.databinding.FormularioImagemBinding

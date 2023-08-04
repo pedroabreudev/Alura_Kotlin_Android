@@ -1,18 +1,12 @@
 package br.com.pedroabreudev.orgs.ui.activity
 
-import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.pedroabreudev.orgs.dao.ProdutosDao
 import br.com.pedroabreudev.orgs.databinding.ActivityFormularioProdutoBinding
-import br.com.pedroabreudev.orgs.databinding.FormularioImagemBinding
 import br.com.pedroabreudev.orgs.extensions.tentaCarregarImagem
 import br.com.pedroabreudev.orgs.model.Produto
 import br.com.pedroabreudev.orgs.ui.dialog.FormularioImagemDialog
-import coil.ImageLoader
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {

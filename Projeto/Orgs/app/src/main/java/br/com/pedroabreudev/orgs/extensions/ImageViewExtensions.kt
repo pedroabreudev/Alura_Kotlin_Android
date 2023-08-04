@@ -1,12 +1,16 @@
 package br.com.pedroabreudev.orgs.extensions
 
 import android.widget.ImageView
+import br.com.pedroabreudev.orgs.R
 import coil.load
 
-fun ImageView.tentaCarregarImagem(url: String? = null){
+fun ImageView.tentaCarregarImagem(
+    url: String? = null,
+    fallback: Int = R.drawable.imagem_padrao
+) {
     load(url) {
-        fallback(br.com.pedroabreudev.orgs.R.drawable.erro)
-        error(br.com.pedroabreudev.orgs.R.drawable.erro)
-        placeholder(br.com.pedroabreudev.orgs.R.drawable.placeholder)
+        fallback(fallback)
+        error(R.drawable.erro)
+        placeholder(R.drawable.placeholder)
     }
 }
