@@ -1,5 +1,6 @@
 package br.com.pedroabreudev.orgs.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -43,7 +44,10 @@ class DetalhesProdutoActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_detalhes_produto_editar -> {
-                    Log.i(TAG, "onOptionsItemSelected: editar")
+                    Intent(this, FormularioProdutoActivity::class.java).apply {
+                        putExtra(CHAVE_PRODUTO, produto)
+                        startActivity(this)
+                    }
                 }
             }
         }
