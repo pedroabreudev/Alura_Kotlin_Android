@@ -1,17 +1,25 @@
 package br.com.pedroabreudev.orgs.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import br.com.pedroabreudev.orgs.R
+import br.com.pedroabreudev.orgs.database.AppDataBase
 import br.com.pedroabreudev.orgs.databinding.ActivityDetalhesProdutoBinding
 import br.com.pedroabreudev.orgs.extensions.formataParaMoedaBrasileira
 import br.com.pedroabreudev.orgs.extensions.tentaCarregarImagem
 import br.com.pedroabreudev.orgs.model.Produto
 
 class DetalhesProdutoActivity : AppCompatActivity() {
-
+    private var produtoId: Long = 0L
+    private var produto: Produto? = null
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
+    }
+    private val produtoDao by lazy {
+        AppDataBase.instancia(this).produtoDao()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,12 +28,42 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         tentaCarregarProduto()
     }
 
-    private fun tentaCarregarProduto() {
-        // tentativa de buscar o produto se ele existir,
-        // caso contrário, finalizar a Activity
-        intent.getParcelableExtra<Produto>(CHAVE_PRODUTO)?.let { produtoCarregado ->
-            preencheCampos(produtoCarregado)
+    override fun onResume() {
+        super.onResume()
+        buscaProduto()
+    }
+
+    private fun buscaProduto() {
+        produto = produtoDao.buscaPorId(produtoId)
+        produto?.let {
+            preencheCampos(it)
         } ?: finish()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detalhes_produto, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_detalhes_produto_remover -> {
+                produto?.let { produtoDao.remove(it) }
+                finish()
+            }
+
+            R.id.menu_detalhes_produto_editar -> {
+                Intent(this, FormularioProdutoActivity::class.java).apply {
+                    putExtra(CHAVE_PRODUTO_ID, produtoId)
+                    startActivity(this)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun tentaCarregarProduto() {
+        produtoId = intent.getLongExtra(CHAVE_PRODUTO_ID, 0L)
     }
 
     private fun preencheCampos(produtoCarregado: Produto) {
@@ -37,5 +75,4 @@ class DetalhesProdutoActivity : AppCompatActivity() {
                 produtoCarregado.valor.formataParaMoedaBrasileira()
         }
     }
-
 }
