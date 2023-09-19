@@ -14,7 +14,7 @@ https://cursos.alura.com.br/formacao-android-kotlin
 
 02 - [Android com Kotlin: personalize o seu app](https://github.com/pedroabreudev/Alura_Kotlin_Android/tree/02_personalize_seu_app) (projeto final).
 
-03 - [Android com Kotlin: persistência de dados com o Room](https://github.com/pedroabreudev/Alura_Kotlin_Android/tree/01_criando_um_app) (projeto final).
+03 - [Android com Kotlin: persistência de dados com o Room](https://github.com/pedroabreudev/Alura_Kotlin_Android/tree/03_persistencia_dados_room) (projeto final).
 
 <!-- 04 - [Android com Kotlin: Migrations e relacionamento com o Room](https://github.com/pedroabreudev/Alura_Kotlin_Android/tree/01_criando_um_app) (projeto final). 
 
